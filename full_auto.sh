@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #########################################################
-#		LISTA DE ARQUIVOS UTILIZADOS EM PRODUÇÃO		#
+#	LISTA DE ARQUIVOS UTILIZADOS EM PRODUÇÃO	#
 #########################################################
 sourceslist="/etc/apt/sources.list"
 release="/etc/os-release"
@@ -16,7 +16,7 @@ lightdm="/etc/lightdm/lightdm.conf"
 
 ################################################### INÍCIO DA CRIAÇÃO DAS FUNÇÕES ###################################################
 
-#													 TESTA SE O SISTEMA UTILIZADO ESTÁ APTO A PROSSEGUIR COM A INSTALAÇÃO
+# TESTA SE O SISTEMA UTILIZADO ESTÁ APTO A PROSSEGUIR COM A INSTALAÇÃO
 function descobreSO(){
 	while IFS= read -r line; do
     if [[ "$line" = *"Debian"* ]] && [[ "$line" = *"10"* ]]; then
@@ -47,7 +47,7 @@ function descobreSO(){
 	sleep 3
 	}
 
-#													 ATUALIZA A SOURCES LIST PARA O DEBIAN 10
+# ATUALIZA A SOURCES LIST PARA O DEBIAN 10
 function sourceListDebian10(){
 	if test -f "$sourceslist"
 		then
@@ -74,7 +74,7 @@ deb-src http://ftp.debian.org/debian stretch-backports main" > "$sourceslist";
 	fi
 	}
 
-#													 ATUALIZA A SOURCES LIST PARA O DEBIAN 11
+# ATUALIZA A SOURCES LIST PARA O DEBIAN 11
 function sourceListDebian11(){
 	if test -f "$sourceslist"
 		then
@@ -107,7 +107,7 @@ deb http://security.debian.org/ bullseye-security contrib main non-free
 	fi
 	}
 
-#													 ATUALIZA A SOURCES LIST PARA O UBUNTU 20.04
+# ATUALIZA A SOURCES LIST PARA O UBUNTU 20.04
 function sourceListUbuntu2004(){
 	if test -f "$sourceslist"
 		then
@@ -138,7 +138,7 @@ deb-src http://archive.canonical.com/ubuntu focal partner" > "$sourceslist";
 	}
 
 # POR ENQUANTO PARA COMPUTADORES COM APENAS 1 USUÁRIO
-#													 CRIA OS ARQUIVOS DE BLOQUEIO E DESBLOQUEIO DA ÁREA DE TRABALHO
+# CRIA OS ARQUIVOS DE BLOQUEIO E DESBLOQUEIO DA ÁREA DE TRABALHO
 function bloqueioDesktop(){
 	touch $bloquear
 	touch $desbloquear
@@ -173,7 +173,7 @@ chmod 755 /usr/bin/mozo' > $desbloquear;
 
 	}
 
-#													 DESABILITA A BUSCA DE IMPRESSORAS PELO CUPS
+# DESABILITA A BUSCA DE IMPRESSORAS PELO CUPS
 function desabilitarBuscaImpressoras(){
 	echo "DESABILITANDO BUSCA DE IMPRESSORAS..."
 	sed -i 's/^BrowseRemoteProtocols dnssd cups*/BrowseRemoteProtocols none/g' $cups
@@ -184,14 +184,14 @@ function desabilitarBuscaImpressoras(){
 	/etc/init.d/avahi-daemon restart;
 	}
 
-#													 HABILITA O LOGIN COM O USUÁRIO ROOT VIA SSH
+# HABILITA O LOGIN COM O USUÁRIO ROOT VIA SSH
 function habilitarLoginRootSSH(){
 	echo "HABILITANDO LOGIN DE ROOT..."
 	sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/g' $ssh
 	/etc/init.d/ssh restart
 	}
 
-#													 REMOVE A TELA DO GRUB DA INICIALIZAÇÃO DO SISTEMA
+# REMOVE A TELA DO GRUB DA INICIALIZAÇÃO DO SISTEMA
 function removerTelaGrub(){
 	echo "REMOVENDO TELA DE SELEÇÃO DO GRUB..."
 	sed -i 's/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' $grub 
@@ -231,7 +231,7 @@ Endereço IP - $ip
 Patrimônio - $patrimonio" > /home/$usuario/Área\ de\ [a-zA-Z]rabalho/NomePC
 }
 
-#													 VER DIFERENÇAS ENTRE OS SOs
+# VER DIFERENÇAS ENTRE OS SOs
 function instalarSoftwares(){
 	echo "ATUALIZANDO REPOSITÓRIOS E INSTALANDO SOFTWARES ADICIONAIS..."
 	apt-get update
@@ -241,7 +241,7 @@ function instalarSoftwares(){
 	fi
 	}
 
-#													 INSTALA A ÚLTIMA VERSÃO DO GOOGLE CHROME
+# INSTALA A ÚLTIMA VERSÃO DO GOOGLE CHROME
 function instalarChrome(){
 	echo "INSTALANDO GOOGLE CHROME..."
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb;
@@ -249,21 +249,21 @@ function instalarChrome(){
 	apt-get install -f -y
 	}
 
-#													 INSTALA A ÚLTIMA VERSÃO DO FIREFOX
+# INSTALA A ÚLTIMA VERSÃO DO FIREFOX
 function instalarFirefox(){
 	echo "INSTALANDO MOZILLA FIREFOX..."
 	wget "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=pt-BR" -O /tmp/firefox.tar.bz2;
 	tar -jxvf /tmp/firefox.tar.bz2 -C /opt/
 	}
 
-#													 INSTALA A VERSÃO 91.5.0 DO THUNDERBIRD
+# INSTALA A VERSÃO 91.5.0 DO THUNDERBIRD
 function instalarThunderbird(){
 	echo "INSTALANDO MOZILLA THUNDERBIRD..."
 	wget "https://download.mozilla.org/?product=thunderbird-91.5.0-SSL&os=linux64&lang=pt-BR" -O /tmp/thunderbird.tar.bz2;
 	tar -jxvf /tmp/thunderbird.tar.bz2 -C /opt
 	}
 
-#													 INSTALA A VERSÃO 6.2.0 DO VNC
+# INSTALA A VERSÃO 6.2.0 DO VNC
 function instalarVNC(){
 	echo "INSTALANDO VNC..."
 	wget https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.2.0-Linux-x64.deb -O /tmp/vnc.deb;
@@ -321,7 +321,7 @@ function confirmaOperacao(){
     esac
 	}
 
-#													 FUNÇÃO AUXILIAR PARA EXECUTAR COMANDOS DO GSETTINGS COM O USUÁRIO COMUM
+# FUNÇÃO AUXILIAR PARA EXECUTAR COMANDOS DO GSETTINGS COM O USUÁRIO COMUM
 function run-in-user-session() {
     display_id=":$(find /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
     usuario=$(who | grep "\(${display_id}\)" | awk '{print $1}')
@@ -329,17 +329,17 @@ function run-in-user-session() {
     environment=("DISPLAY=$display_id" "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$user_id/bus")
     sudo -Hu "$usuario" env "${environment[@]}" "$@"
 	}
-#													 ALTERA E AJUSTA O PAPEL DE PAREDE
+# ALTERA E AJUSTA O PAPEL DE PAREDE
 function configTela(){
 	echo "BAIXANDO PAPEL DE PAREDE..."
 	wget 192.168.1.196/sti/alvf.jpg -O /home/alvf.jpg
-	run-in-user-session gsettings set org.mate.background picture-filename /home/alvf.jpg 							#altera o papel de parede
-	run-in-user-session gsettings set org.mate.background picture-options scaled 									#altera o estilo para escalonar
-	run-in-user-session gsettings set org.mate.background primary-color 'rgb(32,74,135)' 							#altera a cor primária de fundo para azul escuro
-	run-in-user-session gsettings set org.mate.background secondary-color 'rgb(255,255,255)' 						#altera a cor secundária de fundo para branco
-	run-in-user-session gsettings set org.mate.screensaver lock-enabled false 										#desabilita o bloqueio da tela quando a proteção de tela estiver ativa
-	run-in-user-session gsettings set org.mate.screensaver idle-activation-enabled false 							#desabilita a proteção de tela quando o computador ficar ocioso
-	run-in-user-session gsettings set org.mate.session idle-delay 120 												#altera o tempo para o computador ficar ocioso para 2min
+	run-in-user-session gsettings set org.mate.background picture-filename /home/alvf.jpg 				#altera o papel de parede
+	run-in-user-session gsettings set org.mate.background picture-options scaled 					#altera o estilo para escalonar
+	run-in-user-session gsettings set org.mate.background primary-color 'rgb(32,74,135)' 				#altera a cor primária de fundo para azul escuro
+	run-in-user-session gsettings set org.mate.background secondary-color 'rgb(255,255,255)' 			#altera a cor secundária de fundo para branco
+	run-in-user-session gsettings set org.mate.screensaver lock-enabled false 					#desabilita o bloqueio da tela quando a proteção de tela estiver ativa
+	run-in-user-session gsettings set org.mate.screensaver idle-activation-enabled false 				#desabilita a proteção de tela quando o computador ficar ocioso
+	run-in-user-session gsettings set org.mate.session idle-delay 120 						#altera o tempo para o computador ficar ocioso para 2min
 	run-in-user-session gsettings set org.mate.panel.toplevel:/org/mate/panel/toplevels/top/ orientation 'bottom' 	#altera a posição do panel para inferior
 }
 
@@ -404,12 +404,6 @@ function desabilitaGerenciadorRede(){
 function instalaImpressora(){
 	echo "Em processo...";
 }
-
-##############################################################
-#														     #
-# cd /home/$usuario/.config/mate/panel2.d/default/launchers/ #
-#														     #
-##############################################################
 
 ################################################### FIM DA CRIAÇÃO DAS FUNÇÕES ###################################################
 
