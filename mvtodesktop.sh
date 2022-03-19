@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # FILE PATHS ON HOST
-file14path='/tmp/POP-01.27.14-guia-escolha-tratamento-antibacteriano-endovenoso-principais-infeccoes-adulto.pdf'
-file15path='/tmp/POP-01.27.15-profilaxia-antimicrobiana-procedimentos-cirurgicos.pdf'
+file14path='/tmp/FILE_NAME14'
+file15path='/tmp/FILE_NAME15'
 
 # FILE NAMES
-file14='POP-01.27.14-guia-escolha-tratamento-antibacteriano-endovenoso-principais-infeccoes-adulto.pdf'
-file15='POP-01.27.15-profilaxia-antimicrobiana-procedimentos-cirurgicos.pdf'
+file14='FILE_NAME14'
+file15='FILE_NAME15'
 
 # CHECKS IF THERE IS ANY OF THE TWO FILES ON 
 if test -f "$file14path" || test -f "$file15path"
