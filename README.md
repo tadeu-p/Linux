@@ -1,14 +1,12 @@
-.tasks {
-  list-style: none;
-}
+
 <h1>Scripts for Linux</h1>
 <p>Click the links bellow to see</p>
 <ul>
   <a href="full_auto.sh"><li>full_auto.sh</li></a>
   <p>Automate configuration for Debian and Ubuntu.</p>
   <p>List of tasks it does (not necessarily in order):</p>
-    <ul class="tasks">
-      <li>teste</li>
+    <ul>
+      <li></li>
       <li></li>
       <li></li>
       <li></li>
