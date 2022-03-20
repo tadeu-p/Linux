@@ -1,12 +1,11 @@
-
 <h1>Scripts for Linux</h1>
 <p>Click the links bellow to see</p>
 <ul>
   <a href="full_auto.sh"><li>full_auto.sh</li></a>
   <p>Automate configuration for Debian and Ubuntu.</p>
-  <p>List of tasks it does (not necessarily in order):</p>
+  <p>List of some of the things it does (not necessarily in order):</p>
     <ul>
-      <li></li>
+      <li>Tests if the S.O is one of: Debian 10, Debian 11 or Ubuntu 20.**</li>
       <li></li>
       <li></li>
       <li></li>
