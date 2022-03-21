@@ -1,20 +1,27 @@
-<h1>Scripts for Linux</h1>
-<p>Click the links bellow to see</p>
+<h1>Scripts para Linux</h1>
+<p>Clique nos links abaixo para visualizar</p>
 <ul>
   <a href="full_auto.sh"><li>full_auto.sh</li></a>
-  <p>Automate configuration for Debian and Ubuntu.</p>
-  <p>List of some of the things it does (not necessarily in order):</p>
+  <p>Automatização de configurações para Debian 10/11 e Ubuntu 20.</p>
+  <p><sup>Para Ubuntu nem todas as funções estão funcionando.</sup></p>
+  <h3>Algumas das funções que o <i>script</i> faz atualmente (não necessariamente em ordem):</h3>
     <ul>
-      <li>Tests if the S.O is one of: Debian 10, Debian 11 or Ubuntu 20.**</li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
+      <li>Testa se o S.O é: Debian 10, Debian 11 ou Ubuntu 20.04;</li>
+      <li>Atualiza o <i>sources list</i> de acordo com o S.O instalado, bem como atualiza a lista das versões dos pacotes disponíveis;</li>
+      <li>Desabilita a busca de impressoras na rede</li>
+      <li>Habilita o <i>login</i> com o usuário <i>root</i> via SSH</li>
+      <li><q>Remove</q> a tela do GRUB da inicialização</li>
+      <li>Habilita o login automático caso exista apenas um usuário criado</li>
+      <li>Baixa e instala o Chrome, Firefox, Thunderbird e VNC</li>
+      <li><q>Desabilita</q>o gerenciador de rede e o controle de volume da inicialização</li>
   </ul>
+  <hr>
   <a href="cptohost.sh"><li>cptohost.sh</li></a>
-  <p>Copy files to multiple destinations with ssh</p>
+  <p>Copia arquivos para multiplos destinos utilizando SSH</p>
+  <hr>
   <a href="mvtodesktop.sh"><li>mvtpdesktop.sh</li></a>
-  <p>Move files on multiple destinations with ssh</p>
+  <p>Move arquivos para multiplos destinos utilizando SSH</p>
+  <hr>
   <a href="ishoston.sh"><li>ishoston.sh</li></a>
-  <p>Tests the status of multiple hosts</p>
+  <p>Testa o <i>status</i> de multiplos <i>hosts</i></p>
 </ul>
