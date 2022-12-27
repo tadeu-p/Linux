@@ -24,6 +24,15 @@
   <hr>
   <a href="ishoston.sh"><li>ishoston.sh</li></a>
   <p>Testa o <i>status</i> de multiplos <i>hosts</i></p>
-  <a href="updatechrome.sh"><li>updatechrome.sh</li></a>
+  <hr>
+  <a href="atualiza.sh"><li>atualiza.sh</li></a>
   <p>Atualiza o Chrome durante a inicialização uma vez por mês, fazendo algumas validações durante o processo</p>
+  <hr>
+  <a href="runScriptOnHost.sh"><li>runScriptOnHost.sh</li></a>
+  <p>Dada uma lista de IPs, executa um script pré-determinado</p>
+  <hr>
+  <a href="updatechrome.sh"><li>updatechrome.sh</li></a>
+  <p>Utilizado juntamente com o script runScriptOnHost.sh, cria e configura o script atualiza.sh</p>
+  <hr>
+  
 </ul>
