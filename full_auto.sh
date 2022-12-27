@@ -16,7 +16,7 @@ lightdm="/etc/lightdm/lightdm.conf"
 
 ################################################### INÍCIO DA CRIAÇÃO DAS FUNÇÕES ###################################################
 
-# TESTA SE O SISTEMA UTILIZADO ESTÁ APTO A PROSSEGUIR COM A INSTALAÇÃO
+#		 TESTA SE O SISTEMA UTILIZADO ESTÁ APTO A PROSSEGUIR COM A INSTALAÇÃO
 function descobreSO(){
 	while IFS= read -r line; do
     if [[ "$line" = *"Debian"* ]] && [[ "$line" = *"10"* ]]; then
@@ -47,13 +47,13 @@ function descobreSO(){
 	sleep 3
 	}
 
-# ATUALIZA A SOURCES LIST PARA O DEBIAN 10
+#		 ATUALIZA A SOURCES LIST PARA O DEBIAN 10
 function sourceListDebian10(){
 	if test -f "$sourceslist"
 		then
 		echo "
 #------------------------------------------------------------------------------#
-#                   OFFICIAL DEBIAN 10 REPOS                    
+#                   OFFICIAL DEBIAN 10 REPOS				       #
 #------------------------------------------------------------------------------#
 
 ###### Debian Main Repos
@@ -74,13 +74,13 @@ deb-src http://ftp.debian.org/debian stretch-backports main" > "$sourceslist";
 	fi
 	}
 
-# ATUALIZA A SOURCES LIST PARA O DEBIAN 11
+#		 ATUALIZA A SOURCES LIST PARA O DEBIAN 11
 function sourceListDebian11(){
 	if test -f "$sourceslist"
 		then
 			echo "
 #------------------------------------------------------------------------------#
-#                   OFFICIAL DEBIAN 11 REPOS                    
+#                   OFFICIAL DEBIAN 11 REPOS				       #
 #------------------------------------------------------------------------------#
 
 ###### Debian Main Repos
@@ -107,13 +107,13 @@ deb http://security.debian.org/ bullseye-security contrib main non-free
 	fi
 	}
 
-# ATUALIZA A SOURCES LIST PARA O UBUNTU 20.04
+#		 ATUALIZA A SOURCES LIST PARA O UBUNTU 20.04
 function sourceListUbuntu2004(){
 	if test -f "$sourceslist"
 		then
 			echo "
 #------------------------------------------------------------------------------#
-#                   OFFICIAL UBUNTU 20.04 REPOS                    
+#                   OFFICIAL UBUNTU 20.04 REPOS				       #
 #------------------------------------------------------------------------------#
 
 ###### Ubuntu Main Repos
@@ -138,7 +138,7 @@ deb-src http://archive.canonical.com/ubuntu focal partner" > "$sourceslist";
 	}
 
 # POR ENQUANTO PARA COMPUTADORES COM APENAS 1 USUÁRIO
-# CRIA OS ARQUIVOS DE BLOQUEIO E DESBLOQUEIO DA ÁREA DE TRABALHO
+#	 CRIA OS ARQUIVOS DE BLOQUEIO E DESBLOQUEIO DA ÁREA DE TRABALHO
 function bloqueioDesktop(){
 	touch $bloquear
 	touch $desbloquear
@@ -173,31 +173,31 @@ chmod 755 /usr/bin/mozo' > $desbloquear;
 
 	}
 
-# DESABILITA A BUSCA DE IMPRESSORAS PELO CUPS
+#		 DESABILITA A BUSCA DE IMPRESSORAS PELO CUPS
 function desabilitarBuscaImpressoras(){
 	echo "DESABILITANDO BUSCA DE IMPRESSORAS..."
 	sed -i 's/^BrowseRemoteProtocols dnssd cups*/BrowseRemoteProtocols none/g' $cups
-	/etc/init.d/cups restart 
+	/etc/init.d/cups restart
 	/etc/init.d/cups-browsed restart
-	sed -i 's/^use-ipv4=yes*/use-ipv4=no/g' $avahi 
+	sed -i 's/^use-ipv4=yes*/use-ipv4=no/g' $avahi
 	sed -i 's/^use-ipv6=yes*/use-ipv6=no/g' $avahi
 	/etc/init.d/avahi-daemon restart;
 	}
 
-# HABILITA O LOGIN COM O USUÁRIO ROOT VIA SSH
+#		 HABILITA O LOGIN COM O USUÁRIO ROOT VIA SSH
 function habilitarLoginRootSSH(){
 	echo "HABILITANDO LOGIN DE ROOT..."
 	sed -i 's/^#PermitRootLogin prohibit-password/PermitRootLogin yes/g' $ssh
 	/etc/init.d/ssh restart
 	}
 
-# REMOVE A TELA DO GRUB DA INICIALIZAÇÃO DO SISTEMA
+#		 REMOVE A TELA DO GRUB DA INICIALIZAÇÃO DO SISTEMA
 function removerTelaGrub(){
 	echo "REMOVENDO TELA DE SELEÇÃO DO GRUB..."
-	sed -i 's/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' $grub 
+	sed -i 's/^GRUB_TIMEOUT=5/GRUB_TIMEOUT=2/g' $grub
 	update-grub
 	}
-
+#		HABILITA O LOGIN AUTOMÁTICO
 function loginAutomatico(){
 	echo "HABILITANDO LOGIN AUTOMÁTICO..."
 	sed -i 's/#autologin-user=/autologin-user='$usuario'/g' $lightdm
@@ -231,17 +231,17 @@ Endereço IP - $ip
 Patrimônio - $patrimonio" > /home/$usuario/Área\ de\ [a-zA-Z]rabalho/NomePC
 }
 
-# VER DIFERENÇAS ENTRE OS SOs
+#		VER DIFERENÇAS ENTRE OS SOs
 function instalarSoftwares(){
 	echo "ATUALIZANDO REPOSITÓRIOS E INSTALANDO SOFTWARES ADICIONAIS..."
 	apt-get update
-	apt-get install gedit dconf-editor mozo aptitude libnet-ifconfig-wrapper-perl nfs-common curl wget apt-transport-https system-config-printer -y
+	apt-get install gedit dconf-editor dconf-cli mozo aptitude libnet-ifconfig-wrapper-perl nfs-common curl wget apt-transport-https system-config-printer vim -y
 	if [[ $so = *"Debian 11"* ]]; then
 			apt-get install cups cups-browsed printer-driver-gutenprint -y
 	fi
 	}
 
-# INSTALA A ÚLTIMA VERSÃO DO GOOGLE CHROME
+#		INSTALA A ÚLTIMA VERSÃO DO GOOGLE CHROME
 function instalarChrome(){
 	echo "INSTALANDO GOOGLE CHROME..."
 	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O /tmp/chrome.deb;
@@ -249,21 +249,21 @@ function instalarChrome(){
 	apt-get install -f -y
 	}
 
-# INSTALA A ÚLTIMA VERSÃO DO FIREFOX
+#		INSTALA A ÚLTIMA VERSÃO DO FIREFOX
 function instalarFirefox(){
 	echo "INSTALANDO MOZILLA FIREFOX..."
 	wget "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=pt-BR" -O /tmp/firefox.tar.bz2;
 	tar -jxvf /tmp/firefox.tar.bz2 -C /opt/
 	}
 
-# INSTALA A VERSÃO 91.5.0 DO THUNDERBIRD
+#		INSTALA A VERSÃO 91.5.0 DO THUNDERBIRD
 function instalarThunderbird(){
 	echo "INSTALANDO MOZILLA THUNDERBIRD..."
 	wget "https://download.mozilla.org/?product=thunderbird-91.5.0-SSL&os=linux64&lang=pt-BR" -O /tmp/thunderbird.tar.bz2;
 	tar -jxvf /tmp/thunderbird.tar.bz2 -C /opt
 	}
 
-# INSTALA A VERSÃO 6.2.0 DO VNC
+#		INSTALA A VERSÃO 6.2.0 DO VNC
 function instalarVNC(){
 	echo "INSTALANDO VNC..."
 	wget https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.2.0-Linux-x64.deb -O /tmp/vnc.deb;
@@ -321,7 +321,7 @@ function confirmaOperacao(){
     esac
 	}
 
-# FUNÇÃO AUXILIAR PARA EXECUTAR COMANDOS DO GSETTINGS COM O USUÁRIO COMUM
+#		FUNÇÃO AUXILIAR PARA EXECUTAR COMANDOS DO GSETTINGS COM O USUÁRIO COMUM
 function run-in-user-session() {
     display_id=":$(find /tmp/.X11-unix/* | sed 's#/tmp/.X11-unix/X##' | head -n 1)"
     usuario=$(who | grep "\(${display_id}\)" | awk '{print $1}')
@@ -329,7 +329,7 @@ function run-in-user-session() {
     environment=("DISPLAY=$display_id" "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/$user_id/bus")
     sudo -Hu "$usuario" env "${environment[@]}" "$@"
 	}
-# ALTERA E AJUSTA O PAPEL DE PAREDE
+#		ALTERA E AJUSTA O PAPEL DE PAREDE
 function configTela(){
 	echo "BAIXANDO PAPEL DE PAREDE..."
 	wget 192.168.1.196/sti/alvf.jpg -O /home/alvf.jpg
@@ -363,6 +363,7 @@ Comment=' > /home/$usuario/.config/autostart/VNC.desktop
 	    	usuario=$(who | grep "\(${display_id}\)" | awk '{print $1}')
 			mkdir /home/$usuario/.config/autostart
 			touch /home/$usuario/.config/autostart/vncserver-x11.desktop
+			chown -R $usuario.$usuario /home/$usuario/.config/autostart/
 			echo '[Desktop Entry]
 Type=Application
 Exec=vncserver-x11
@@ -401,31 +402,112 @@ function desabilitaGerenciadorRede(){
 	fi
 	}
 
+function atualizaChrome(){
+touch /usr/local/bin/atualiza.sh
+
+echo '#!/bin/bash
+
+# TESTA SE HÁ CONEXÃO, CONTINUARÁ TESTANDO ATE A CONDIÇÃO FOR VERDADEIRA OU TER REALIZADO 60 ITERAÇÕES
+counter=0
+until ping -c1 -q 192.168.2.150 &>/dev/null; do
+    sleep 1
+    echo "$counter" >>/tmp/chrome.log
+    let counter++
+    if [[ $counter == 60 ]]; then
+        echo "Tempo excedido!" >>/tmp/chrome.log
+        exit 0
+    fi
+done
+
+# CONCATENA O ANO E O MÊS DO DIA EM QUE O SCRIPT ESTÁ SENDO EXECUTADO. EX: 2205
+today=`date "+%y%m"`
+# CONCATENA O ANO E O MÊS DA DATA DE ALTERAÇÃO DA PASTA. EX: 2109
+chrome=`date -r /opt/google/chrome "+%y%m"`
+
+# TESTA SE A DATA (AAMM) DA ÚLTIMA ALTERAÇÃO DA PASTA DO CHROME FOR MAIOR QUE DATA DO DIA (AAMM)
+# EX: 2205 > 2109
+# NESTE CASO COMO A DATA DA ÚLTIMA ALTERAÇÃO É MENOR QUE A DATA DO DIA, O SCRIPT SERÁ EXECUTADO
+if [[ $today > $chrome ]]; then
+    echo "Atualizado em " `date`>>/tmp/chrome.log
+    chmod 700 /opt/google/chrome/google-chrome
+    # BAIXA O CHROME DO SERVIDOR, O QUAL ATUALIZA A VERSÃO 1X POR SEMANA
+    if
+        wget "192.168.1.196/sti/Programas/chrome.deb" -O /tmp/chrome.deb >>/tmp/chrome.scr;
+    then
+        echo "Chrome baixado!" >>/tmp/chrome.log
+    else
+        echo "Falha ao baixar o Chrome!" >>/tmp/chrome.log
+        #statements
+    fi
+
+    # INSTALA O CHROME
+    if
+        dpkg -i /tmp/chrome.deb >>/tmp/chrome.scr;
+    then
+        echo "Chrome instalado!" >>/tmp/chrome.log
+    else
+        echo "Falha ao instalar o Chrome!" >>/tmp/chrome.log
+    fi
+
+    if
+        apt-get install -f -y >>/tmp/chrome.scr;
+    then
+        echo "Finalizada instalacao!" >>/tmp/chrome.log
+    else
+        echo "Falha ao finalizar a instalacao!" >>/tmp/chrome.log
+    fi
+    chmod 755 /opt/google/chrome/google-chrome
+else
+    echo "A versão instalada já é a mais atualizada!" >>/tmp/chrome.log
+    # CASO A DATA SEJA IGUAL, O SCRIPT É ENCERRADO
+    exit 0
+fi' > /usr/local/bin/atualiza.sh
+
+chmod +x /usr/local/bin/atualiza.sh
+
+printf "\n#On reboot will update Chrome if the version inslalled is older than a month\n@reboot root /usr/local/bin/atualiza.sh\n" >> /etc/crontab
+
+/etc/init.d/cron restart
+}
+
+function ajustaPanel(){
+    wget 192.168.1.196/sti/CONFIG_HRO/panel_settings -O /tmp/panel_settings
+    run-in-user-session dconf load /org/mate/panel/ < /tmp/panel_settings
+}
+
 function instalaImpressora(){
 	echo "Em processo...";
 }
 
+##############################################################
+#							     #
+# cd /home/$usuario/.config/mate/panel2.d/default/launchers/ #
+#							     #
+##############################################################
+
 ################################################### FIM DA CRIAÇÃO DAS FUNÇÕES ###################################################
 
 clear
-descobreSO 
-nomePC 
+descobreSO
+nomePC
 clear
-bloqueioDesktop 
-instalarSoftwares 
+bloqueioDesktop
+instalarSoftwares
 desabilitarBuscaImpressoras
-habilitarLoginRootSSH 
-removerTelaGrub 
-loginAutomatico 
-instalarChrome 
-instalarVNC 
-instalarFirefox 
-instalarThunderbird 
-configTela 
-iniciaVNC 
-desabilitaControleVolume 
-desabilitaGerenciadorRede 
-bloquear.sh
+habilitarLoginRootSSH
+removerTelaGrub
+loginAutomatico
+instalarChrome
+instalarVNC
+instalarFirefox
+instalarThunderbird
+configTela
+iniciaVNC
+desabilitaControleVolume
+desabilitaGerenciadorRede
+atualizaChrome
+ajustaPanel
+#bloquear.sh
 echo "FINALIZANDO INSTALAÇÃO..."
 sleep 1
 clear
