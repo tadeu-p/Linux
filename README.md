@@ -24,4 +24,6 @@
   <hr>
   <a href="ishoston.sh"><li>ishoston.sh</li></a>
   <p>Testa o <i>status</i> de multiplos <i>hosts</i></p>
+  <a href="updatechrome.sh"><li>updatechrome.sh</li></a>
+  <p>Atualiza o Chrome durante a inicialização uma vez por mês, fazendo algumas validações durante o processo</p>
 </ul>
