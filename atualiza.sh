@@ -2,7 +2,7 @@
 
 # TESTA SE HÁ CONEXÃO, CONTINUARÁ TESTANDO ATE A CONDIÇÃO FOR VERDADEIRA OU TER REALIZADO 60 ITERAÇÕES
 counter=0
-until ping -c1 -q 192.168.2.150 &>/dev/null; do
+until ping -c1 -q 192.168.1.1 &>/dev/null; do
     sleep 1
     echo "$counter" >>/tmp/chrome.log
     let counter++
@@ -25,7 +25,7 @@ if [[ $today > $chrome ]]; then
     chmod 700 /opt/google/chrome/google-chrome
     # BAIXA O CHROME DO SERVIDOR, O QUAL ATUALIZA A VERSÃO 1X POR SEMANA
     if 
-        wget "192.168.1.196/sti/Programas/chrome.deb" -O /tmp/chrome.deb >>/tmp/chrome.scr; 
+        wget "192.168.1.10/pasta/programas/chrome.deb" -O /tmp/chrome.deb >>/tmp/chrome.scr; 
     then
         echo "Chrome baixado!" >>/tmp/chrome.log
     else
