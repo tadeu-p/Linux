@@ -217,10 +217,10 @@ function nomePC(){
 	hostname=($HOSTNAME);
 	echo "Hostname: "$hostname
 	read -p "Digite número de IP: " ip;
-	#ip="192.168.2.209"
+	#ip="192.168.1.1"
 	echo "IP: "$ip
 	read -p "Digite número do Patrimônio: " patrimonio;
-	#patrimonio="6916"
+	#patrimonio="123456"
 	echo "Patrimônio: "$patrimonio
 	# Criação arquivo NomePC
 	cd /home/$usuario/Área\ de\ [a-zA-Z]rabalho;
@@ -268,7 +268,7 @@ function instalarVNC(){
 	echo "INSTALANDO VNC..."
 	wget https://www.realvnc.com/download/file/vnc.files/VNC-Server-6.2.0-Linux-x64.deb -O /tmp/vnc.deb;
 	dpkg -i /tmp/vnc.deb 
-	vnclicense -add 232NH-NH733-T85TH-KT2P2-7ZPUA
+	vnclicense -add *****-*****-*****-*****-*****
 	}
 
 function instalarDebian10(){
@@ -332,8 +332,8 @@ function run-in-user-session() {
 #		ALTERA E AJUSTA O PAPEL DE PAREDE
 function configTela(){
 	echo "BAIXANDO PAPEL DE PAREDE..."
-	wget 192.168.1.196/sti/alvf.jpg -O /home/alvf.jpg
-	run-in-user-session gsettings set org.mate.background picture-filename /home/alvf.jpg 				#altera o papel de parede
+	wget 192.168.1.10/pasta/imagem.jpg -O /home/imagem.jpg
+	run-in-user-session gsettings set org.mate.background picture-filename /home/imagem.jpg 			#altera o papel de parede
 	run-in-user-session gsettings set org.mate.background picture-options scaled 					#altera o estilo para escalonar
 	run-in-user-session gsettings set org.mate.background primary-color 'rgb(32,74,135)' 				#altera a cor primária de fundo para azul escuro
 	run-in-user-session gsettings set org.mate.background secondary-color 'rgb(255,255,255)' 			#altera a cor secundária de fundo para branco
@@ -409,7 +409,7 @@ echo '#!/bin/bash
 
 # TESTA SE HÁ CONEXÃO, CONTINUARÁ TESTANDO ATE A CONDIÇÃO FOR VERDADEIRA OU TER REALIZADO 60 ITERAÇÕES
 counter=0
-until ping -c1 -q 192.168.2.150 &>/dev/null; do
+until ping -c1 -q 192.168.1.1 &>/dev/null; do
     sleep 1
     echo "$counter" >>/tmp/chrome.log
     let counter++
@@ -432,7 +432,7 @@ if [[ $today > $chrome ]]; then
     chmod 700 /opt/google/chrome/google-chrome
     # BAIXA O CHROME DO SERVIDOR, O QUAL ATUALIZA A VERSÃO 1X POR SEMANA
     if
-        wget "192.168.1.196/sti/Programas/chrome.deb" -O /tmp/chrome.deb >>/tmp/chrome.scr;
+        wget "192.168.1.10/pasta/programas/chrome.deb" -O /tmp/chrome.deb >>/tmp/chrome.scr;
     then
         echo "Chrome baixado!" >>/tmp/chrome.log
     else
